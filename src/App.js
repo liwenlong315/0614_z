@@ -14,7 +14,7 @@ export default class App extends Component {
         <Switch>
           {/* 注册路由 */}
           <Route path="/login" component={Login}/>
-          <Route path="/" component={Admin}/>
+          <Route path="/" component={Admin}/> 
         </Switch>
       </BrowserRouter>
       )

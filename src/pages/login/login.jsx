@@ -1,10 +1,11 @@
 import React from 'react'
 import {  Form,  Icon, Input, Button, } from 'antd'
-import logo from "./images/logo.png";
+import logo from "../../assets/images/logo.png";
 import './login.less'
 import {reqLogin} from '../../api'
 import {message} from 'antd'
 import memoryUtils from '../../utils/memoryUtils'
+import {Redirect} from 'react-router-dom'
 
 const Item = Form.Item
 
@@ -24,12 +25,15 @@ const Item = Form.Item
        const {username,password} = values
        const result = await reqLogin(username,password)
        if(result.status===0){
+         //定义user
          const user = result.data
          localStorage.setItem('USER-KEY',JSON.stringify(user))
+         //保存用户登录信息
          memoryUtils.user = user
+         //跳转到admin界面
         this.props.history.replace('/')
        }else{
-          message.error(result.msg,2)
+          message.error(result.msg,2) //登录失败弹出提示
        }
      }else{
        console.log(err)
@@ -53,13 +57,19 @@ const Item = Form.Item
     }else if(!/^[a-zA-Z0-9]+$/.test(value)){
        callback('密码必须是英文、数字组成')
     }else{
-      callback()
+      callback() //验证通过
     }
  
   }
 
   render () {
     const { getFieldDecorator } = this.props.form;
+
+    //访问login界面，如果已经登录，自动转跳admin
+    if(memoryUtils.user._id){
+       return <Redirect to="/"/>
+    }
+
     return (
       <div className="login">
         <header className="login-header">
@@ -74,6 +84,10 @@ const Item = Form.Item
             <Item>
               {
                 getFieldDecorator('username',{
+                  //指定初始值为空串
+                  initialValue:'',
+                  //声明式验证：使用已有验证规则进行验证
+
                   rules:[{ required: true, message: '用户名不能为空' },
                   {min:4,message:'用户名小于4位'},
                   {max:12,message:'用户名大于12位'},
