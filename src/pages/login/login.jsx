@@ -2,6 +2,9 @@ import React from 'react'
 import {  Form,  Icon, Input, Button, } from 'antd'
 import logo from "./images/logo.png";
 import './login.less'
+import {reqLogin} from '../../api'
+import {message} from 'antd'
+import memoryUtils from '../../utils/memoryUtils'
 
 const Item = Form.Item
 
@@ -14,10 +17,20 @@ const Item = Form.Item
     // 阻止默认行为
     event.preventDefault()
     //统一验证表单
-    this.props.form.validateFields((err,values)=>{
+    this.props.form.validateFields(async(err,values)=>{
      if(!err){
       //  const{username,password} = values
-       console.log('登录Ajxs请求',values)
+       console.log('登录Ajax请求',values)
+       const {username,password} = values
+       const result = await reqLogin(username,password)
+       if(result.status===0){
+         const user = result.data
+         localStorage.setItem('USER-KEY',JSON.stringify(user))
+         memoryUtils.user = user
+        this.props.history.replace('/')
+       }else{
+          message.error(result.msg,2)
+       }
      }else{
        console.log(err)
      }
