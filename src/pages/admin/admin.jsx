@@ -16,9 +16,10 @@ import { Layout } from 'antd';
 
 const {Footer,Sider,Content} = Layout
 
-
+//后台管理的一级路由组件
 export default class Admin extends Component {
 render() { 
+   // 如果当前没有登陆(内存的user中没有_id)
   const user = memoryUtils.user
   if(!user._id){
     return<Redirect to="/login"/>

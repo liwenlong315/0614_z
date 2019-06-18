@@ -20,10 +20,12 @@ const Item = Form.Item
     //统一验证表单
     this.props.form.validateFields(async(err,values)=>{
      if(!err){
-      //  const{username,password} = values
+        // 验证成功了
+        // console.log('发登陆ajax请求: ', values)
        console.log('登录Ajax请求',values)
        const {username,password} = values
        const result = await reqLogin(username,password)
+       // 如果登陆成功了
        if(result.status===0){
          //定义user
          const user = result.data
@@ -129,7 +131,7 @@ const Item = Form.Item
             {/* 登录按钮 */}
             <Form.Item>
               <Button type="primary" htmlType="submit" className="login-form-button">
-                登 陆
+                登 录
               </Button>
             </Form.Item>
           </Form>

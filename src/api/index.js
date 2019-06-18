@@ -28,6 +28,7 @@ export const reqUpdateCategory = ({categoryId, categoryName}) => ajax(BASE + '/m
 //     console.log('result',result)
 // })
 
+ //获取天气信息
 export const reqWeather =(location)=>{
     const url =  `http://api.map.baidu.com/telematics/v3/weather?location=${location}&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`
     return new Promise((resolve,reject) => {
@@ -37,6 +38,7 @@ export const reqWeather =(location)=>{
             if(!error && data.status ==='success'){
                 const {dayPictureUrl,weather }
                 = data.results[0].weather_data[0]
+                
                 resolve({dayPictureUrl,weather})
             }else{
                 message.error('获取天气信息！')

@@ -11,7 +11,6 @@ import memoryUtils from '../../utils/memoryUtils';
 import  {removeUser} from '../../utils/storageUtils'
 import { reqWeather } from '../../api';
 import { Modal } from 'antd'
-import Linkbutton from '../../components/link-button'
 import LinkButton from '../../components/link-button';
 
 
@@ -20,22 +19,26 @@ class Header extends Component {
   static propTypes ={}
 
 //初始化状态
-state = {
+state = {// 给Header的实例(组件对象)添加属性
   currentTime:formateDate(Date.now()), //当前时间字符串
   dayPictureUrl:'',//天气图片的url
   weather:'', //天气文本
 }
-
+//每隔1s更新时间的显示
 showCurrentiem =()=> {
   setInterval(()=>{
     const currentTime = formateDate(Date.now())
+
     this.setState({
       currentTime
     })
   },1000);
 }
-
+  /* 
+  得到当前请求路径对应的title
+  */
    getTile =()=>{
+      // 得到当前请求路径
      const path = this.props.location.pathname
      let title=''
      menuList.forEach(item =>{
@@ -50,7 +53,9 @@ showCurrentiem =()=> {
      })
       return title
    }
- 
+   /* 
+  获取天气信息显示
+  */
    getWeather = async () =>{
      const {dayPictureUrl,weather} = await reqWeather('北京')
         this.setState({
@@ -58,9 +63,11 @@ showCurrentiem =()=> {
           weather
         })
    }
- 
+   /* 
+  退出登陆
+  */
 logout =()=> {
-   //显示确认框
+   //显示确认框, 点击确定后再退出
    Modal.confirm({
     title: '你确定要退出吗?',
     onOk:()=> {
@@ -86,7 +93,7 @@ componentWillUnmount(){
  componentDidMount(){
    //每隔1s更新时间显示
    this.showCurrentiem()
-   //获取天气
+   //获取天气信息显示
    this.getWeather()
    
  }
@@ -94,8 +101,9 @@ componentWillUnmount(){
 
   render() {
    const {currentTime,dayPictureUrl,weather} = this.state
-     
+     // 得到当前登陆的用户
    const {user} =memoryUtils
+    // 得到当前请求路径对应的title
    const title = this.getTile()
 
     return (

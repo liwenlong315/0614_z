@@ -16,7 +16,7 @@ export function seveUser(user){
 export function getUser(){
     return store.get('USER-KEY') || {}
 }
-//2.删除user
+//2.删除保存的user
 export function removeUser(){
     store.remove("user")
 }
