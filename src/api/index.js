@@ -16,8 +16,11 @@ export const reqLogin = (username,password) => ajax(BASE+ '/login',{username,pas
 //添加用户
 export const reqAddUser = (user) => ajax(BASE+'/manage/user/add',user,'POST')
 
-//获取分类列表
+//获取分类列表（一级，二级）
 export const reqCategorys = (parentId) => ajax(BASE + '/manage/category/list', {parentId})
+//更新分类的名称
+export const reqUpdateCategory = ({categoryId, categoryName}) => ajax(BASE + '/manage/category/update', {categoryId, categoryName}, 'POST')
+
 
 
 //测试
