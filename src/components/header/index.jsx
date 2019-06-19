@@ -58,6 +58,7 @@ showCurrentiem =()=> {
   */
    getWeather = async () =>{
      const {dayPictureUrl,weather} = await reqWeather('北京')
+     //更新状态
         this.setState({
           dayPictureUrl,
           weather
