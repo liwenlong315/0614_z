@@ -1,5 +1,5 @@
 import React from 'react'
-import "./index.less"
+import "./index.less";
 
 /* 
 通用的看似链接的一个button组件
@@ -9,6 +9,6 @@ props: 包含所有标签属性的对象
   2). 标签对象
   3). 标签对象的数组
 */
-export default function LinkButton(props){
-    return <button className="link-button"{...props}/>
+export default function LinkButton(props) {
+  return <button className="link-button" {...props}/>
 }

@@ -1,8 +1,10 @@
-import React, { Component } from "react";
-import memoryUtils from "../../utils/memoryUtils";
+import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
+import { Layout } from "antd";
+
 import AdminHeader from "../../components/header";
 import LeftNav from "../../components/left-nav";
+import memoryUtils from "../../utils/memoryUtils";
 
 import Home from "../home/home";
 import Category from "../category/category";
@@ -12,16 +14,18 @@ import User from "../user/user";
 import Bar from "../charts/bar";
 import Line from "../charts/line";
 import Pie from "../charts/pie";
-import { Layout } from "antd";
 
 const { Footer, Sider, Content } = Layout;
 
-//后台管理的一级路由组件
-export default class Admin extends Component {
+/* 
+后台管理的一级路由组件
+*/
+export default class Admin extends React.Component {
   render() {
     // 如果当前没有登陆(内存的user中没有_id)
     const user = memoryUtils.user;
     if (!user._id) {
+      // this.props.history.replace('/login')
       return <Redirect to="/login" />;
     }
 

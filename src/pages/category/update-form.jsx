@@ -40,4 +40,3 @@ class UpdateForm extends Component {
 }
 
 export default Form.create()(UpdateForm)
-

@@ -1,22 +1,38 @@
-/* 用来进行local数据存储的工具模板 */
-
-//默认暴露
-// export default {
-
-// }
-
-
 import store from 'store'
 
-//分别暴露
-//1.保存user
-export function seveUser(user) {
-    store.set('USER-KEY', user)
+/* 
+用来进行local数据存储的工具模块
+*/
+
+/* export default {
+  saveUser (user) {
+
+  },
+
+  getUser () {
+    return user对象
+  }
+} */
+
+/* 
+保存user
+*/
+export function saveUser(user) {
+  // localStorage.setItem('USER-KEY', JSON.stringify(user))
+  store.set('USER-KEY', user)
 }
+
+/* 
+读取保存的user
+*/
 export function getUser() {
-    return store.get('USER-KEY') || {}
+  // return JSON.parse(localStorage.getItem('USER-KEY') || '{}')
+  return store.get('USER-KEY') || {}
 }
-//2.删除保存的user
+
+/* 
+删除保存的user
+*/
 export function removeUser() {
-    store.remove('USER-KEY') //user也可以当做参数传入
+  store.remove('user')
 }

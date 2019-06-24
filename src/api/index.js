@@ -5,9 +5,7 @@
 每个函数的返回值都是promise对象
 */
 import jsonp from 'jsonp'
-import {
-  message
-} from 'antd'
+import {message} from 'antd'
 import ajax from "./ajax"
 // const BASE = 'http://localhost:3001'
 const BASE = ''
@@ -18,43 +16,23 @@ export function reqLogin(username, password) {
   return ajax(BASE + '/login', {username, password}, 'POST')
 }
 */
-export const reqLogin = (username, password) => ajax(BASE + '/login', {
-  username,
-  password
-}, 'POST')
+export const reqLogin = (username, password) => ajax(BASE + '/login', {username, password}, 'POST')
 
 // 添加用户
 export const reqAddUser = (user) => ajax(BASE + '/manage/user/add', user, 'POST')
 
 
 // 获取分类列表(一级/二级)
-export const reqCategorys = (parentId) => ajax(BASE + '/manage/category/list', {
-  parentId
-})
+export const reqCategorys = (parentId) => ajax(BASE + '/manage/category/list', {parentId})
 
 // 更新分类的名称
-export const reqUpdateCategory = ({
-  categoryId,
-  categoryName
-}) => ajax(BASE + '/manage/category/update', {
-  categoryId,
-  categoryName
-}, 'POST')
+export const reqUpdateCategory = ({categoryId, categoryName}) => ajax(BASE + '/manage/category/update', {categoryId, categoryName}, 'POST')
 
 // 添加分类
-export const reqAddCategory = (categoryName, parentId) => ajax(BASE + '/manage/category/add', {
-  categoryName,
-  parentId
-}, 'POST')
+export const reqAddCategory = (categoryName, parentId) => ajax(BASE + '/manage/category/add', {categoryName, parentId}, 'POST')
 
 // 获取商品分页列表
-export const reqProducts = ({
-  pageNum,
-  pageSize
-}) => ajax(BASE + '/manage/product/list', {
-  pageNum,
-  pageSize
-})
+export const reqProducts = ({pageNum, pageSize}) => ajax(BASE + '/manage/product/list', {pageNum, pageSize})
 
 // 根据商品名称/描述搜索获取商品分页列表
 export const reqSearchProducts = ({
@@ -75,15 +53,40 @@ export const reqUpdateStatus = (productId, status) => ajax(BASE + '/manage/produ
 }, 'POST')
 
 // 根据分类ID获取分类
-export const reqCategory = (categoryId) => ajax(BASE + '/manage/category/info', {
-  categoryId
-})
+export const reqCategory = (categoryId) => ajax(BASE + '/manage/category/info', {categoryId})
 
 // 删除图片
-export const reqDeleteImg = (name) => ajax(BASE + '/manage/img/delete', {
-  name
+export const reqDeleteImg = (name) => ajax(BASE + '/manage/img/delete', {name}, 'POST')
+
+// 添加/更新商品
+export const reqAddOrUpdateProduct = (product) => ajax(BASE + '/manage/product/'+ (product._id ? 'update' : 'add'), product, 'POST')
+
+// 添加角色
+export const reqAddRole = (roleName) => ajax('/manage/role/add', {
+  roleName
 }, 'POST')
 
+// 获取角色列表
+export const reqRoles = () => ajax('/manage/role/list')
+
+// 更新角色(给角色设置权限)
+export const reqUpdateRole = (role) => ajax('/manage/role/update', role, 'POST')
+
+// 添加/更新用户
+export const reqAddOrUpdateUser = (user) => ajax('/manage/user/' + (user._id ? 'update' : 'add'), user, 'POST')
+
+// 获取用户列表
+export const reqUsers = () => ajax('/manage/user/list')
+
+// 删除用户
+export const reqDeleteUser = (userId) => ajax('/manage/user/delete', {
+  userId
+}, 'POST')
+
+// 添加商品
+// export const reqAddProduct = (product) => ajax(BASE + '/manage/product/add', product, 'POST')
+// 更新商品
+// export const reqUpdateProduct = (product) => ajax(BASE + '/manage/product/update', product, 'POST')
 
 
 // 简单测试一下
@@ -98,7 +101,7 @@ export const reqWeather = (location) => {
   const url = `http://api.map.baidu.com/telematics/v3/weather?location=${location}&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`
 
   return new Promise((resolve, reject) => {
-
+    
     // 执行请求
     setTimeout(() => {
       jsonp(url, {}, (error, data) => {
@@ -118,5 +121,8 @@ export const reqWeather = (location) => {
       })
     }, 2000)
   })
-
+  
 }
+
+
+
